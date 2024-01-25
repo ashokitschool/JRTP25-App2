@@ -11,15 +11,21 @@
 	
 		<h2 class="mt-5">Reset Password Here</h2>
 		
-		<form action="dashboard.html" action="post">
+		<font style="color: red;">
+			<p th:text="${errMsg}"></p>
+		</font>
+		
+		<form action="updatePwd" method="post" th:object="${resetPwd}">
 			<table>
 				<tr>
 					<td>New Password:</td>
-					<td><input type="password" name="newpassword" required/></td>
+					<td><input type="password" th:field="*{newPwd}" required/></td>
 				</tr>
 				<tr>
 					<td>Confirm Password:</td>
-					<td><input type="password" name="confirmpassword" required/></td>
+					<td><input type="password" th:field="*{confirmPwd}" required/></td>
+					
+					<input type="hidden" th:field="*{userId}"/>
 				</tr>
 				<tr>
 					<td></td>
