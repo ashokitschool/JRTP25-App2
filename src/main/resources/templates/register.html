@@ -78,6 +78,8 @@
 			$('#countryId').on("change", function () {
 				$("#stateId").find('option').remove();
 				$("#cityId").find('option').remove();
+				$('<option>').val('').text('-Select-').appendTo("#stateId");
+				$('<option>').val('').text('-Select-').appendTo("#cityId");
 				$.ajax({
 					type: 'GET',
 					url: '/getStates?countryId=' + $('#countryId').val(),
@@ -91,6 +93,7 @@
 			
 			$('#stateId').on("change", function () {
 				$("#cityId").find('option').remove();
+				$('<option>').val('').text('-Select-').appendTo("#cityId");
 				$.ajax({
 					type: 'GET',
 					url: '/getCities?stateId=' + $('#stateId').val(),
