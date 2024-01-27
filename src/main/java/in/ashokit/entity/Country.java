@@ -17,7 +17,6 @@ public class Country {
 	}
 
 	public Country(Integer countryId, String countryName) {
-		super();
 		this.countryId = countryId;
 		this.countryName = countryName;
 	}

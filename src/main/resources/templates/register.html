@@ -15,6 +15,14 @@
 	<div class="container">
 
 		<h2 class="mt-5">Register Here</h2>
+		
+		<font style="color: red;">
+			<p th:text="${errMsg}"></p>
+		</font>
+		
+		<font style="color: green;">
+			<p th:text="${succMsg}"></p>
+		</font>
 
 		<form action="register" method="post" th:object="${registerForm}">
 			<table>
@@ -66,22 +74,21 @@
 
 	<script>
 		$(document).ready(function () {
+			
 			$('#countryId').on("change", function () {
-				console.log("country-change");
 				$("#stateId").find('option').remove();
 				$("#cityId").find('option').remove();
 				$.ajax({
 					type: 'GET',
 					url: '/getStates?countryId=' + $('#countryId').val(),
 					success: function (result) {
-						console.log(result);
 						$.each(result, function (key, value) {
-							console.log(key);
 							$('<option>').val(key).text(value).appendTo("#stateId");
 						});
 					}
 				});
 			});
+			
 			$('#stateId').on("change", function () {
 				$("#cityId").find('option').remove();
 				$.ajax({
@@ -90,7 +97,6 @@
 					success: function (result) {
 						console.log(result);
 						$.each(result, function (key, value) {
-							console.log(key);
 							$('<option>').val(key).text(value).appendTo("#cityId");
 						});
 					}

@@ -70,26 +70,45 @@ public class UserController {
 	}
 	
 	@GetMapping("/register")
-	public String registerPage(Model model) {
-		Map<Integer, String> countries = userService.getCountries();
-		model.addAttribute("countries", countries);
+	public String loadRegisterPage(Model model) {
 		model.addAttribute("registerForm", new RegisterForm());
+		Map<Integer,String> countries = userService.getCountries();
+		model.addAttribute("countries", countries);
 		return "register";
 	}
-	
+
 	@GetMapping("/getStates")
 	@ResponseBody
 	public Map<Integer, String> getStates(@RequestParam("countryId") Integer countryId) {
-		System.out.println("country-id::"+countryId);
 		return userService.getStates(countryId);
 	}
 	
 	@GetMapping("/getCities")
 	@ResponseBody
-	public Map<Integer, String> getCities(@RequestParam("stateId") Integer stateId) {
-		System.out.println("state-id : " +stateId);
+	public Map<Integer, String> getCities(@RequestParam("stateId") Integer stateId){
 		return userService.getCities(stateId);
 	}
+	
+
+	@PostMapping("/register")
+	public String registerUser(@ModelAttribute RegisterForm registerForm, Model model) {
+		
+		boolean saveUser = userService.saveUser(registerForm);
+		
+		if(saveUser) {
+			model.addAttribute("succMsg", "Registration Success");
+		}else {
+			model.addAttribute("errMsg", "Registration Failed");
+		}
+		
+		Map<Integer,String> countries = userService.getCountries();
+		model.addAttribute("countries", countries);
+		
+		return "register";
+	}
+	
+	
+	
 }
 
 
