@@ -9,25 +9,18 @@ import in.ashokit.service.DashboardService;
 
 @Controller
 public class DashboardController {
-	
+
 	@Autowired
 	private DashboardService dashboardService;
-	
+
 	@GetMapping("/dashboard")
 	public String buildDashboard(Model model) {
-		
+
 		String quoteTxt = dashboardService.getQuote();
-		
+
 		model.addAttribute("quote", quoteTxt);
-		
+
 		return "dashboard";
 	}
 
 }
-
-
-
-
-
-
-

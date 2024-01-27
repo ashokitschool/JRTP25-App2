@@ -1,13 +1,18 @@
 package in.ashokit.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.ashokit.bindings.LoginForm;
+import in.ashokit.bindings.RegisterForm;
 import in.ashokit.bindings.ResetPwdForm;
 import in.ashokit.entity.User;
 import in.ashokit.service.UserService;
@@ -62,6 +67,28 @@ public class UserController {
 		model.addAttribute("errMsg", "Pwd update failed");
 		return "resetPwd";
 		
+	}
+	
+	@GetMapping("/register")
+	public String registerPage(Model model) {
+		Map<Integer, String> countries = userService.getCountries();
+		model.addAttribute("countries", countries);
+		model.addAttribute("registerForm", new RegisterForm());
+		return "register";
+	}
+	
+	@GetMapping("/getStates")
+	@ResponseBody
+	public Map<Integer, String> getStates(@RequestParam("countryId") Integer countryId) {
+		System.out.println("country-id::"+countryId);
+		return userService.getStates(countryId);
+	}
+	
+	@GetMapping("/getCities")
+	@ResponseBody
+	public Map<Integer, String> getCities(@RequestParam("stateId") Integer stateId) {
+		System.out.println("state-id : " +stateId);
+		return userService.getCities(stateId);
 	}
 }
 

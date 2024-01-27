@@ -1,8 +1,6 @@
 package in.ashokit.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,12 +9,21 @@ import jakarta.persistence.Table;
 public class City {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cityId;
 
 	private String cityName;
 
 	private Integer stateId;
+
+	public City() {
+	}
+
+	public City(Integer cityId, String cityName, Integer stateId) {
+		super();
+		this.cityId = cityId;
+		this.cityName = cityName;
+		this.stateId = stateId;
+	}
 
 	public Integer getCityId() {
 		return cityId;
